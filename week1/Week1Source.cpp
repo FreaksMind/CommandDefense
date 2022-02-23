@@ -1,4 +1,5 @@
 #include "Week1Header.h"
+#include <string>
 
 int Sum(int a, int b) { return a + b; }
 int Dif(int a, int b) { return a - b; }
@@ -51,6 +52,34 @@ void ParseSources()
 // Week 1 - using C API
 void ReadTopScore()
 {
+    const char* filen = "UserScores.txt";
+
+    char nume;
+    int score;
+    char numeMax;
+    int max = 0;
+
+	FILE* fp;
+	fopen_s(&fp, filen, "r");
+
+	if (fp == NULL)
+    {
+        exit(1);
+	}
+
+   while (!feof(fp))
+    {
+        fscanf_s(fp, "%c", &nume);
+        fscanf_s(fp, "%d\n", &score);
+        if (max < score)
+        {
+           numeMax = nume;
+           max = score;
+		}
+    }
+    printf("%c ", numeMax);
+    printf("%d", max);
+	fclose(fp);
     // open file "UserScores.txt"
 
     // read line by line: Name Points
