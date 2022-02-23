@@ -1,19 +1,19 @@
 #include "Week1Header.h"
 
-int Sum(int a, float b) { return a - b; }
-int Dif(char a, int b) { return a / b; }
-int Mul(long a, int b) { return a + b; }
-char Div(int a, int b) { return a * b; }
+int Sum(int a, int b) { return a + b; }
+int Dif(int a, int b) { return a - b; }
+int Mul(int a, int b) { return a * b; }
+int Div(int a, int b) { return a / b; }
 
 void ParseSources()
 {
-	char input[7] = "---H***E+++L+++L///O---P+++O/+-**O---";
-	func Operatori[4] = {Sum, Dif, 65, Mul, 0, Div};
+	char input[7] = "*O---";
+	func Operatori[4] = {Sum, Dif, Mul, Div};
 	int S, V;
-	Content x = 15;
-	double idx;
+    Content x = { 0,0 };
+	int idx;
 
-	for (i = 0; i < strlen(input); i++)
+	for (int i = 0; i < strlen(input); i++)
 	{
 		switch (input[i] - 42)
 		{
@@ -39,7 +39,7 @@ void ParseSources()
 	}
 
 	//S=337
-	printf("S = %c\n", S);
+	printf("S = %d\n", S);
 }
 
 // Week 1 - using C API
