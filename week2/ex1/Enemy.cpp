@@ -1,27 +1,37 @@
-#include <iostream>
+#include "Enemy.h"
 
-/*
-	Design a C++ class that reflects the properties of an wave of  enemies. The class should include the following:
- - methods to set and get the name of the wave
- - methods to set and get the number of enemies  (must be bigger than 0)
- - methods to set and get the starting health (bigger than 0)
- - methods to set and get the money per enemy (must be a float value)
-
-
-	Create 2 global functions that compare two wave in terms of: number of enemies and money per enemy.
-If two waves are equal the return value of such a function will be 0. If the first wave is bigger than the second one, the return value will be 1, otherwise -1.
-	Make sure that you have the following:
-a cpp file for the methods specific to the class
-a header file for the global functions
-a cpp file for the global functions implementation
-a main.cpp file that shows how the methods and global functions can be used.
-
-*/
-
-
-int main()
+void Enemy::Init(Point intitialLocation, int initialHealh)
 {
+	location = intitialLocation;
+	health = initialHealh;
+}
 
+void Enemy::Move(EnemyDirection direction, int step)
+{
+	switch (direction) {
+	case EnemyDirection::UpDirection:
+		location.y -= step;
+		break;
+	case EnemyDirection::DownDirection:
+		location.y += step;
+		break;	
+	case EnemyDirection::LeftDirection:
+		location.x -= step;
+		break;
+	case EnemyDirection::RightDirection:
+		location.x += step;
+		break;
+	}
+}
 
-    return 0;
+bool Enemy::IsDead()
+{
+	return (health <= 0) ? true : false;
+}
+
+void Enemy::Shoot(int damage)
+{
+	if (!IsDead()) {
+		health -= damage;
+	}
 }

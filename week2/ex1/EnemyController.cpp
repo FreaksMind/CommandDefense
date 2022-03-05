@@ -1,27 +1,50 @@
-#include <iostream>
+#include "EnemyController.h"
+#include "Enemy.h" // to actualy use the field Enemy declared in the header by forward declaration, we use the field here
 
-/*
-	Design a C++ class that reflects the properties of an wave of  enemies. The class should include the following:
- - methods to set and get the name of the wave
- - methods to set and get the number of enemies  (must be bigger than 0)
- - methods to set and get the starting health (bigger than 0)
- - methods to set and get the money per enemy (must be a float value)
-
-
-	Create 2 global functions that compare two wave in terms of: number of enemies and money per enemy.
-If two waves are equal the return value of such a function will be 0. If the first wave is bigger than the second one, the return value will be 1, otherwise -1.
-	Make sure that you have the following:
-a cpp file for the methods specific to the class
-a header file for the global functions
-a cpp file for the global functions implementation
-a main.cpp file that shows how the methods and global functions can be used.
-
-*/
-
-
-int main()
+void EnemyController::Init(int maximumEnemies, int step, Point initialLocation)
 {
+	enemies = new Enemy[maximumEnemies];
+	maxEnemies = maximumEnemies;
+	stepSize = step;
+	startinLocation = initialLocation;
+}
 
+void EnemyController::Uninit()
+{
+	delete[] enemies;
+}
 
-    return 0;
+void EnemyController::Move()
+{
+	for (int i = 0; i < currentEnemiesSize; ++i) {
+		enemies[i].Move(EnemyDirection::LeftDirection, 2);
+	}
+}
+
+void EnemyController::DamageAll()
+{
+	for (int i = 0; i < currentEnemiesSize; ++i) {
+		enemies[i].Shoot(i + 1);
+	}
+}
+
+int EnemyController::CountKilledEnemies()
+{
+	unsigned int counter = 0;
+	for (int i = 0; i < currentEnemiesSize; ++i) {
+		enemies[i].IsDead() ? counter++ : 0;
+	}
+	return counter;
+}
+
+bool EnemyController::SpawnEnemy()
+{
+	if (currentEnemiesSize < maxEnemies) {
+		Enemy en;
+		en.Init(startinLocation, ENEMY_HEALTH);
+		enemies[currentEnemiesSize] = en;
+		currentEnemiesSize++;
+		return true;
+	}
+	return false;
 }
